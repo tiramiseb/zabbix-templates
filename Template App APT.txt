@@ -1,0 +1,14 @@
+Documentation for the APT application template
+==============================================
+
+This application is only useful if something like cron-apt is installed, to download new packages list
+
+User parameters
+---------------
+
+    UserParameter=apt.upgrade,sudo apt-get upgrade --simulate | grep ^Inst | wc -l
+
+Sudo entry
+----------
+
+    zabbix  ALL=(ALL) NOPASSWD: /usr/bin/apt-get upgrade --simulate

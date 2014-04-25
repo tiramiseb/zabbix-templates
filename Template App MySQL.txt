@@ -1,0 +1,32 @@
+Documentation for the MySQL application template
+================================================
+
+User parameters
+---------------
+
+    UserParameter=mysql.status[*],echo "show global status where Variable_name='$1';" | HOME=/var/lib/zabbix mysql -N | awk '{print $$2}'
+    UserParameter=mysql.size[*],echo "select sum($(case "$3" in both|"") echo "data_length+index_length";; data|index) echo "$3_length";; free) echo "data_free";; esac)) from information_schema.tables$([[ "$1" = "all" || ! "$1" ]] || echo " where table_schema='$1'")$([[ "$2" = "all" || ! "$2" ]] || echo "and table_name='$2'");" | HOME=/var/lib/zabbix mysql -N
+    UserParameter=mysql.ping,HOME=/var/lib/zabbix mysqladmin ping | grep -c alive
+    UserParameter=mysql.version,mysql -V
+
+MySQL client configuration
+--------------------------
+
+Create a MySQL user:
+
+    mysql> CREATE USER 'zabbix'@'localhost' IDENTIFIED BY 'password';
+
+Create a MySQL client configuration file:
+
+    # mkdir /var/lib/zabbix
+    # cat > /var/lib/zabbix/dot.my.cnf << EOF
+    > [client]
+    > user="zabbix"
+    > password="z4bb1x"
+    > EOF
+    # cd /var/lib/zabbix
+    # ln -s dot.my.cnf .my.cnf
+    # chown zabbix.zabbix dot.my.cnf .my.cnf
+    # chmod 600 dot.my.cnf
+
+Source: http://www.tiramiseb.fr/2012/12/11/creer-un-utilisateur-mysql-pour-la-supervision-avec-zabbix/ (author's website, in french)

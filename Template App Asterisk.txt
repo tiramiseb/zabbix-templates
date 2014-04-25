@@ -1,0 +1,18 @@
+Documentation for the Asterisk application template
+===================================================
+
+I don't use Asterisk since April '14, so there will probably be no improvement on this template.
+
+User parameters
+---------------
+
+    UserParameter=asterisk.calls.active,sudo /usr/sbin/asterisk -r -x "core show calls" | grep active | cut -d" " -f1
+    UserParameter=asterisk.calls.processed,sudo /usr/sbin/asterisk -r -x "core show calls" | grep processed | cut -d" " -f1
+    UserParameter=asterisk.channels.active,sudo /usr/sbin/asterisk -r -x "core show channels" | grep "active channels" | cut -d" " -f1
+    UserParameter=asterisk.sip.total,sudo /usr/sbin/asterisk -r -x "sip show peers" | grep "sip peers" | cut -d" " -f1
+    UserParameter=asterisk.sip.online,sudo /usr/sbin/asterisk -r -x "sip show peers" | grep "sip peers" | sed 's/.* \([0-9]*\) online.*/\1/'
+
+Sudo entry
+----------
+
+    zabbix  ALL=(ALL) NOPASSWD: /usr/sbin/asterisk
