@@ -1,6 +1,14 @@
 zabbix-templates
 ================
 
+Deprecation notice
+------------------
+
+SMMi, as a commercial offer, has stopped. I have stopped using Zabbix to monitor customers infrastructures. This repository will no longer live. Feel free to take these templates if you need, but I will not change them.
+
+Introduction
+------------
+
 Zabbix templates created for the SMMi monitoring infrastructure.
 
 Some of these templates may be derived from official templates.
